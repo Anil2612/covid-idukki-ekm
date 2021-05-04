@@ -33,6 +33,7 @@ export class AppComponent implements OnInit{
         this.isAvailable ? items.isAvailable = true : items.isAvailable = false;
         if(items.isAvailable) {
           this.noItem = true;
+          ++this.availableSlot;
         }
       })
     })
