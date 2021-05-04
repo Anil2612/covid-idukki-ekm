@@ -1,0 +1,71 @@
+<div class="container">
+  <h1>{{heading}}</h1>
+  <button class="c-btn" (click)="showAll()">{{buttonLabel}}</button>
+  <div class="b-btns">
+    <div>
+      <input type="radio" id="ekm" name="place" value="ekm" (input)="getValue(true)">
+      <label for="ekm">Ernakulam</label>
+    </div>
+    <div>
+      <input type="radio" id="idukki" name="place" value="idukki" (input)="getValue(false)" checked>
+      <label for="idukki">Idukki</label>
+    </div>
+  </div>
+  <div *ngIf="!noItem">
+    <h1 class="red">No Slots Available</h1>
+  </div>
+  
+  <div *ngIf="noItem">
+    <h1 class="red">No. of Slots Available : <span class="no">{{availableSlot}}</span></h1>
+  </div>
+
+  <div class="wrapper">
+    <ng-container *ngFor="let data of vaccineDetails?.centers">
+
+      <div class="contain" *ngIf="data?.isAvailable || !isShow">
+        <table>
+          <tr>
+            <td>Center:</td>
+            <td> <b> <span class="center-name">{{data.name}}</span> </b>
+              <div>{{data.district_name}},
+                {{data.block_name}}, {{data.pincode}}</div>
+            </td>
+          </tr>
+          <tr>
+            <td>Time</td>
+            <td> <b>{{data.from}} - {{data.to}}</b> </td>
+          </tr>
+          <tr *ngIf="(data?.sessions?.length && data?.isAvailable )|| !isShow">
+            <td>Slot Details</td>
+            <td>
+              <div class="slot-container" *ngFor="let se of data?.sessions">
+                <div class="slot-container-1">
+                  <div class="blue" *ngIf="se?.available_capacity">Slots Available</div>
+                  <div class="red" *ngIf="!se?.available_capacity">Slots Not Available</div>
+                  <div>Available Capacity: <b>{{se?.available_capacity}}</b></div>
+                  <div>Age Limit: <b>{{se?.min_age_limit}}</b></div>
+                  <div>Vaccine: <b>{{se?.vaccine}}</b></div>
+                </div>
+                <div *ngIf="se?.available_capacity || !isShow" class="slot-container-2">
+                  <div *ngIf="se?.slots?.length">
+                    <div *ngFor="let sl of se?.slots">
+                      <div class="slots">{{sl}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="!(data?.sessions?.length && data?.isAvailable)">
+            <td>Status</td>
+            <td class="red">No Vaccine Available</td>
+          </tr>
+          <tr>
+            <td> <a class="cowin" href="https://www.cowin.gov.in/home" target="_blank">Go To Cowin</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </ng-container>
+  </div>
+</div>
