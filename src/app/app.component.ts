@@ -29,6 +29,7 @@ export class AppComponent implements OnInit{
     this.http.get(url).subscribe((data)=>{
       this.vaccineDetails = data;
       this.vaccineDetails.centers.map((items: any)=>{
+        items.sessions.map((element: any) => element.available_capacity = element.available_capacity - element.available_capacity % 1);
         this.isAvailable = items.sessions.find((element: any) => element.available_capacity);
         this.isAvailable ? items.isAvailable = true : items.isAvailable = false;
         if(items.isAvailable) {
