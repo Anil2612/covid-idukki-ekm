@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "site": "idukki-ekm-vaccine",
+    "public": "dist/test",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "dist/test/index.html"
+      }
+    ]
+  }
+}
